@@ -154,7 +154,7 @@ class LinkedTreeTTT(Tree):
             boardValue = Board.containsBlockedMove(child._board, BoardData.X_PLAYER)
             if (boardValue >= 1):
                 child._value += (boardValue * 7)
-                parent = child._parent
+                parent = child._parent._parent
                 value = (boardValue * 7)
                 while (parent != None):
                     parent._value += value

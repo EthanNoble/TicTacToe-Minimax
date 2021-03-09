@@ -1,8 +1,10 @@
 To play Tic Tac Toe, run the Main.py script
 
-This is a rather messy implementation of the minimax algorithm and the Monte Carlo tree search.
+This is an implementation of the minimax algorithm and the Monte Carlo tree search.
 
-Try to play against the AI, it's fairly smart for just a bunch of 1's an 0's! It can be pretty dumb at times, however.
+It might take a while to load the computer's moves when you run the script. Be patient!
+
+Try to play against the AI, it's very smart for just a bunch of 1's an 0's!
 
 To make a move, type in the numbers 0 - 8. Each number corresponds to a tile:
 0 1 2
@@ -10,5 +12,3 @@ To make a move, type in the numbers 0 - 8. Each number corresponds to a tile:
 6 7 8
 
 Type -1 to reset the game
-
-If you type in a number less than -1 or greater than 8, the program will exit!

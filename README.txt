@@ -11,4 +11,4 @@ To make a move, type in the numbers 0 - 8. Each number corresponds to a tile:
 3 4 5
 6 7 8
 
-Type -1 to reset the game
+Type -2 to change players

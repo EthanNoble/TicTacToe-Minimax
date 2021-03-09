@@ -10,13 +10,26 @@ def main():
     print("Generating Computer's Moves...")
     tree = LinkedTreeTTT(9, True)
 
+    while (True):
+        player = None
+        os.system("cls")
+        print("Who would you like to play, X or O?")
+        playerChoice = input(">> ")
+        if (str.lower(playerChoice) == 'x'):
+            player = BoardData.X_PLAYER
+            break
+        elif (str.lower(playerChoice) == 'o'):
+            player = BoardData.O_PLAYER
+            break
+    
     invalidMove = False
     currentBoard = copy.deepcopy(BoardData.BOARD_EMPTY)
     while (True):
         os.system("cls")
-        if (not invalidMove):
+        #Execute this if the player is playing O
+        if (player == BoardData.O_PLAYER and not invalidMove):
             #Generate the next move based on the current board
-            tree._getNextMove([tree._startNode], currentBoard)
+            tree._getNextMove([tree._startNode], currentBoard, player)
             currentBoard = copy.deepcopy(tree._nextMove)
         Board.display(currentBoard)
 
@@ -39,12 +52,18 @@ def main():
         else:
             if (userMove >= 0 and userMove <= 8):
                 if (currentBoard[userMove] == BoardData.EMPTY):
-                        currentBoard[userMove] = BoardData.O_PLAYER
+                        currentBoard[userMove] = player
                         invalidMove = False
                 else:
                     invalidMove = True
             else:
                 invalidMove = True
+        
+        #Execute this if the player is playing X
+        if (not Board.isFull(currentBoard) and player == BoardData.X_PLAYER and not invalidMove):
+            #Generate the next move based on the current board
+            tree._getNextMove([tree._startNode], currentBoard, player)
+            currentBoard = copy.deepcopy(tree._nextMove)
 
         time.sleep(1)
 

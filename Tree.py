@@ -34,7 +34,7 @@ class LinkedTreeTTT(Tree):
         self._isDecreasing = isDecreasing
         self._generateTree([self._startNode], self._childrenPerNode)
 
-    def _getNextMove(self, nodes, board):
+    def _getNextMove(self, nodes, board, player):
         for node in nodes:
             if (Board.isEqual(node._board, board)):
                 #If these are the children of the startNode,
@@ -42,20 +42,37 @@ class LinkedTreeTTT(Tree):
                 if (len(nodes) == 1):
                     for i in range(0, len(node._children)):
                         node._children[i]._value = -10
-                leastValue = node._children[0]._value
-                leastValueIndex = 0
-                for i in range(0, len(node._children)):
-                    # Board.display(node._children[i]._board)
-                    # print("-----------", node._children[i]._value)
-                    if (node._children[i]._value < leastValue):
-                        leastValue = node._children[i]._value
-                        leastValueIndex = i
+
                 moveChoice = []
-                for i in range(0, len(node._children)):
-                    if (node._children[i]._value == leastValue):
-                        moveChoice.append(node._children[i]._board)
+                #If the player O, then the AI is trying to MINIMIZE their moves
+                if (player == BoardData.O_PLAYER):
+                    leastValue = node._children[0]._value
+                    leastValueIndex = 0
+                    for i in range(0, len(node._children)):
+                        #Board.display(node._children[i]._board)
+                        #print("-----------", node._children[i]._value)
+                        if (node._children[i]._value < leastValue):
+                            leastValue = node._children[i]._value
+                            leastValueIndex = i
+                    for i in range(0, len(node._children)):
+                        if (node._children[i]._value == leastValue):
+                            moveChoice.append(node._children[i]._board)
+                #If the player X, then the AI is trying to MAXIMIZE their moves
+                elif (player == BoardData.X_PLAYER):
+                    greatestValue = node._children[0]._value
+                    greatestValueIndex = 0
+                    for i in range(0, len(node._children)):
+                        #Board.display(node._children[i]._board)
+                        #print("-----------", node._children[i]._value)
+                        if (node._children[i]._value > greatestValue):
+                            greatestValue = node._children[i]._value
+                            greatestValueIndex = i
+                    for i in range(0, len(node._children)):
+                        if (node._children[i]._value == greatestValue):
+                            moveChoice.append(node._children[i]._board)
+
                 self._nextMove = moveChoice[randint(0, len(moveChoice) - 1)]
-            self._getNextMove(node._children, board)
+            self._getNextMove(node._children, board, player)
                     
 
     def _generateTree(self, nodes, childrenPerNode, currentPlayer = BoardData.X_PLAYER):
@@ -87,6 +104,7 @@ class LinkedTreeTTT(Tree):
             BoardData.O_PLAYER if currentPlayer == BoardData.X_PLAYER else BoardData.X_PLAYER
         )
 
+        #Giving a minimax value to each node based on their childrens' values
         for child in children:
             boardValue = Board.isWinningBoard(child._board, BoardData.X_PLAYER)
             if (boardValue >= 1):
@@ -126,9 +144,18 @@ class LinkedTreeTTT(Tree):
             
             boardValue = Board.containsBlockedMove(child._board, BoardData.O_PLAYER)
             if (boardValue >= 1):
-                child._value -= (boardValue * 9)
+                child._value -= (boardValue * 7)
                 parent = child._parent
-                value = (boardValue * 9)
+                value = (boardValue * 7)
                 while (parent != None):
                     parent._value -= value
+                    parent = parent._parent
+            
+            boardValue = Board.containsBlockedMove(child._board, BoardData.X_PLAYER)
+            if (boardValue >= 1):
+                child._value += (boardValue * 7)
+                parent = child._parent
+                value = (boardValue * 7)
+                while (parent != None):
+                    parent._value += value
                     parent = parent._parent

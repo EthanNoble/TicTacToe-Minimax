@@ -115,20 +115,20 @@ class LinkedTreeTTT(Tree):
                     parent._value += value
                     parent = parent._parent
             
-            # boardValue = Board.isAlmostWinningBoard(child._board, BoardData.X_PLAYER)
-            # if (boardValue >= 1):
-            #     child._value -= (boardValue * 5)
-            #     parent = child._parent
-            #     value = (boardValue * 5)
-            #     while (parent != None):
-            #         parent._value -= value
-            #         parent = parent._parent
+            boardValue = Board.isAlmostWinningBoard(child._board, BoardData.X_PLAYER)
+            if (boardValue >= 1):
+                child._value -= (boardValue * 5)
+                parent = child._parent
+                value = (boardValue * 5)
+                while (parent != None):
+                    parent._value -= value
+                    parent = parent._parent
             
             boardValue = Board.containsBlockedMove(child._board, BoardData.O_PLAYER)
             if (boardValue >= 1):
-                child._value -= (boardValue * 20)
+                child._value -= (boardValue * 9)
                 parent = child._parent
-                value = (boardValue * 20)
+                value = (boardValue * 9)
                 while (parent != None):
                     parent._value -= value
                     parent = parent._parent

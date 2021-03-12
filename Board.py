@@ -65,6 +65,26 @@ class Board:
         elif (board[2] == playerToCheckWin and board[4] == playerToCheckWin and board[6] == playerToCheckWin):
             numberOfWinningMoves += 1
         return numberOfWinningMoves
+    
+    @staticmethod
+    def isWinningBoardGUIDisplay(board, playerToCheckWin):
+        if (board[0] == playerToCheckWin and board[1] == playerToCheckWin and board[2] == playerToCheckWin):
+            return [0, 1, 2]
+        elif (board[3] == playerToCheckWin and board[4] == playerToCheckWin and board[5] == playerToCheckWin):
+            return [3, 4, 5]
+        elif (board[6] == playerToCheckWin and board[7] == playerToCheckWin and board[8] == playerToCheckWin):
+            return [6, 7, 8]
+        elif (board[0] == playerToCheckWin and board[3] == playerToCheckWin and board[6] == playerToCheckWin):
+            return [0, 3, 6]
+        elif (board[1] == playerToCheckWin and board[4] == playerToCheckWin and board[7] == playerToCheckWin):
+            return [1, 4, 7]
+        elif (board[2] == playerToCheckWin and board[5] == playerToCheckWin and board[8] == playerToCheckWin):
+            return [2, 5, 8]
+        elif (board[0] == playerToCheckWin and board[4] == playerToCheckWin and board[8] == playerToCheckWin):
+            return [0, 4, 8]
+        elif (board[2] == playerToCheckWin and board[4] == playerToCheckWin and board[6] == playerToCheckWin):
+            return [2, 4, 6]
+        return [-1, -1, -1]
 
     @staticmethod
     def containsBlockedMove(board, playerToCheckWin):

@@ -74,7 +74,6 @@ class LinkedTreeTTT(Tree):
                 self._nextMove = moveChoice[randint(0, len(moveChoice) - 1)]
             self._getNextMove(node._children, board, player)
                     
-
     def _generateTree(self, nodes, childrenPerNode, currentPlayer = BoardData.X_PLAYER):
         isFullCount = 0
         for node in nodes:
